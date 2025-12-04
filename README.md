@@ -1,52 +1,103 @@
 # Candidate Assessment - Laravel Project
 
-This is a Laravel application for the Royal Apps candidate assessment.
+A Laravel application for the Royal Apps candidate assessment. This application integrates with the Candidate Testing API to manage authors and books.
+
+## Features
+
+- **Authentication:** Login with API credentials, token stored in session with auto-refresh
+- **Authors Management:**
+  - View all authors in a paginated table
+  - View single author with their books
+  - Delete authors (only if they have no books)
+- **Books Management:**
+  - Add new books with author selection dropdown
+  - Delete books from author detail page
+- **User Profile:** Display logged-in user's name and logout functionality
 
 ## API Documentation
 
-- **Swagger Documentation:** https://candidate-testing.api.royal-apps.io/docs
-- **API Base URL:** https://candidate-testing.api.royal-apps.io
-- **Credentials:**
+- **Swagger Documentation:** https://candidate-testing.com/docs
+- **API Base URL:** https://candidate-testing.com
+- **Test Credentials:**
   - Email: `ahsoka.tano@royal-apps.io`
   - Password: `Kryze4President`
 
-## Setup Instructions
+## Local Setup
 
-1. **Install Dependencies:**
+### Requirements
+
+- PHP 8.2+
+- Composer
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone [your-repo-url]
+   cd candidate-assessment
+   ```
+
+2. **Install dependencies:**
    ```bash
    composer install
    ```
 
-2. **Environment Configuration:**
+3. **Environment configuration:**
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-3. **Database Setup:**
-   ```bash
-   php artisan migrate
-   ```
-
-4. **Run the Development Server:**
+4. **Run the application:**
    ```bash
    php artisan serve
    ```
 
-   The application will be available at `http://localhost:8000`
+5. **Access the application:**
+   Open `http://localhost:8000` in your browser
+
+## Heroku Deployment
+
+### Deploy Steps
+
+1. **Set buildpack:**
+   ```bash
+   heroku buildpacks:set heroku/php
+   ```
+
+2. **Set environment variables:**
+   ```bash
+   heroku config:set APP_KEY=$(php artisan key:generate --show)
+   heroku config:set APP_ENV=production
+   heroku config:set APP_DEBUG=false
+   heroku config:set LOG_CHANNEL=errorlog
+   heroku config:set SESSION_DRIVER=cookie
+   heroku config:set CANDIDATE_API_BASE_URL=https://candidate-testing.com
+   ```
+
+3. **Deploy:**
+   ```bash
+   git push heroku main
+   ```
 
 ## Project Structure
 
-This project will be developed step by step with incremental commits:
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php      # Login/Logout
+│   │   ├── AuthorController.php    # Authors CRUD
+│   │   └── BookController.php      # Books CRUD
+│   └── Middleware/
+│       └── EnsureApiToken.php      # Auth middleware
+├── Services/
+│   └── CandidateApiClient.php      # API client service
+```
 
-1. **Step 1:** API Client Setup & Authentication
-2. **Step 2:** Login Page & Token Storage
-3. **Step 3:** Authors Management (List, View, Delete)
-4. **Step 4:** Books Management (Add, Delete)
-5. **Step 5:** User Profile Display & Logout
+## Tech Stack
 
-## Requirements
-
-- PHP 8.0+
-- Composer
-- SQLite (default) or MySQL
+- **Framework:** Laravel 12
+- **PHP:** 8.2+
+- **Styling:** Tailwind CSS (CDN)
+- **Session:** Cookie-based
