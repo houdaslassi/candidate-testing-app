@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -21,7 +22,8 @@ Route::middleware('api.token')->group(function () {
     Route::get('/authors/{id}', [AuthorController::class, 'show'])->name('authors.show');
     Route::delete('/authors/{id}', [AuthorController::class, 'destroy'])->name('authors.destroy');
     
-    // Books (placeholder routes - will be implemented next)
-    Route::get('/books/create', function () { return 'Add book form coming soon'; })->name('books.create');
-    Route::delete('/books/{id}', function ($id) { return back(); })->name('books.destroy');
+    // Books
+    Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+    Route::post('/books', [BookController::class, 'store'])->name('books.store');
+    Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
 });
