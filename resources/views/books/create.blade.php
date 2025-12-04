@@ -9,13 +9,13 @@
 <body class="bg-gray-100 min-h-screen">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-4">
                 <a href="{{ route('authors.index') }}" class="text-blue-600 hover:text-blue-800">&larr; Back to Authors</a>
             </div>
             <div class="flex items-center gap-4">
                 @if(session('user'))
-                    <span class="text-gray-600">{{ session('user.first_name') }} {{ session('user.last_name') }}</span>
+                    <span class="text-gray-600 text-sm sm:text-base">{{ session('user.first_name') }} {{ session('user.last_name') }}</span>
                 @endif
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
@@ -25,9 +25,9 @@
         </div>
     </nav>
 
-    <div class="max-w-2xl mx-auto px-4 py-8">
-        <div class="bg-white rounded-lg shadow p-6">
-            <h1 class="text-2xl font-bold mb-6">Add New Book</h1>
+    <div class="max-w-2xl mx-auto px-4 py-6 sm:py-8">
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h1 class="text-xl sm:text-2xl font-bold mb-6">Add New Book</h1>
 
             @if(session('error'))
                 <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -159,16 +159,16 @@
                     @enderror
                 </div>
 
-                <div class="flex gap-4">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <button 
                         type="submit" 
-                        class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                        class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium text-center"
                     >
                         Create Book
                     </button>
                     <a 
                         href="{{ $selectedAuthorId ? route('authors.show', $selectedAuthorId) : route('authors.index') }}" 
-                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors font-medium"
+                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors font-medium text-center"
                     >
                         Cancel
                     </a>

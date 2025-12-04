@@ -9,11 +9,11 @@
 <body class="bg-gray-100 min-h-screen">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
             <h1 class="text-xl font-semibold">Authors Management</h1>
             <div class="flex items-center gap-4">
                 @if(session('user'))
-                    <span class="text-gray-600">{{ session('user.first_name') }} {{ session('user.last_name') }}</span>
+                    <span class="text-gray-600 text-sm sm:text-base">{{ session('user.first_name') }} {{ session('user.last_name') }}</span>
                 @endif
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
@@ -38,7 +38,7 @@
         @endif
 
         <!-- Authors Table -->
-        <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>

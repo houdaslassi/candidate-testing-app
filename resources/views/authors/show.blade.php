@@ -9,13 +9,13 @@
 <body class="bg-gray-100 min-h-screen">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-4">
                 <a href="{{ route('authors.index') }}" class="text-blue-600 hover:text-blue-800">&larr; Back to Authors</a>
             </div>
             <div class="flex items-center gap-4">
                 @if(session('user'))
-                    <span class="text-gray-600">{{ session('user.first_name') }} {{ session('user.last_name') }}</span>
+                    <span class="text-gray-600 text-sm sm:text-base">{{ session('user.first_name') }} {{ session('user.last_name') }}</span>
                 @endif
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
@@ -40,26 +40,26 @@
         @endif
 
         <!-- Author Details -->
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-            <div class="flex justify-between items-start">
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">{{ $author['first_name'] }} {{ $author['last_name'] }}</h1>
-                    <p class="text-gray-500 mt-1">Author ID: {{ $author['id'] }}</p>
+                    <h1 class="text-xl sm:text-2xl font-bold text-gray-900">{{ $author['first_name'] }} {{ $author['last_name'] }}</h1>
+                    <p class="text-gray-500 mt-1 text-sm">Author ID: {{ $author['id'] }}</p>
                 </div>
                 @if(empty($author['books']))
                     <form action="{{ route('authors.destroy', $author['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this author?')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Delete Author</button>
+                        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm sm:text-base">Delete Author</button>
                     </form>
                 @else
-                    <button disabled class="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed" title="Cannot delete author with books. Delete books first.">
+                    <button disabled class="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed text-sm sm:text-base" title="Cannot delete author with books. Delete books first.">
                         Delete Author
                     </button>
                 @endif
             </div>
 
-            <div class="mt-6 grid grid-cols-2 gap-4">
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <span class="text-sm text-gray-500">Birthday</span>
                     <p class="text-gray-900">{{ isset($author['birthday']) ? date('F j, Y', strtotime($author['birthday'])) : '-' }}</p>
@@ -84,12 +84,13 @@
 
         <!-- Books Section -->
         <div class="bg-white rounded-lg shadow overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+            <div class="px-4 sm:px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <h2 class="text-lg font-semibold">Books ({{ count($author['books'] ?? []) }})</h2>
-                <a href="{{ route('books.create', ['author_id' => $author['id']]) }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add Book</a>
+                <a href="{{ route('books.create', ['author_id' => $author['id']]) }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm sm:text-base">Add Book</a>
             </div>
 
             @if(!empty($author['books']))
+                <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -120,6 +121,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             @else
                 <div class="px-6 py-8 text-center text-gray-500">
                     No books found for this author.
