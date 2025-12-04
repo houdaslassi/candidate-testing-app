@@ -33,8 +33,8 @@ A Laravel application for the Royal Apps candidate assessment. This application 
 
 1. **Clone the repository:**
    ```bash
-   git clone [your-repo-url]
-   cd candidate-assessment
+   git clone https://github.com/houdaslassi/candidate-testing-app
+   cd candidate-testing-app
    ```
 
 2. **Install dependencies:**
