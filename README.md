@@ -80,10 +80,40 @@ A Laravel application for the Royal Apps candidate assessment. This application 
    git push heroku main
    ```
 
+## CLI Command (Bonus)
+
+Create a new author via the command line:
+
+```bash
+php artisan author:create
+```
+
+The command will prompt for:
+- API email (press Enter for default: `ahsoka.tano@royal-apps.io`)
+- API password (hidden input for security - type: `Kryze4President`)
+- Author details (first name, last name, birthday, gender, place of birth, biography)
+
+Example session:
+```
+=== Create New Author ===
+
+Enter API email [ahsoka.tano@royal-apps.io]: 
+Enter API password: ********
+Authenticating...
+✓ Authentication successful!
+
+First name: John
+Last name: Doe
+...
+```
+
 ## Project Structure
 
 ```
 app/
+├── Console/
+│   └── Commands/
+│       └── CreateAuthor.php        # CLI command to add author
 ├── Http/
 │   ├── Controllers/
 │   │   ├── AuthController.php      # Login/Logout
