@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'candidate_api' => [
+        'base_url' => env('CANDIDATE_API_BASE_URL', 'https://candidate-testing.com'),
+    ],
+
 ];
